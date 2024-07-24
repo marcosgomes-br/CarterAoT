@@ -1,6 +1,4 @@
-﻿
-using Carter;
-using Core.Models;
+﻿using Core.Models;
 
 namespace Api
 {

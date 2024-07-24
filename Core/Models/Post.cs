@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
+using Core.Results;
 
 namespace Core.Models
 {
@@ -25,5 +21,7 @@ namespace Core.Models
     [JsonSourceGenerationOptions(WriteIndented = true)]
     [JsonSerializable(typeof(Post[]))]
     [JsonSerializable(typeof(IEnumerable<Post>))]
+    [JsonSerializable(typeof(Result<IEnumerable<Post>>))]
+
     public partial class PostJsonSerializerContext : JsonSerializerContext;
 }

@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Results;
 using Core.Services;
 using Microsoft.Net.Http.Headers;
 using System.Text.Json;
@@ -9,13 +10,14 @@ namespace Infrastructure.Services
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
-        public IEnumerable<Post> TestPosts = new List<Post>();
+        public IEnumerable<Post> TestPosts = [];
 
-        public async Task<IEnumerable<Post>> GetPosts()
+
+
+        public async Task<Result<IEnumerable<Post>>> GetPosts()
         {
             var jsonOptions = new JsonSerializerOptions();
             jsonOptions.TypeInfoResolverChain.Add(PostJsonSerializerContext.Default);
-
 
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://jsonplaceholder.typicode.com/posts")
             {
@@ -25,17 +27,29 @@ namespace Infrastructure.Services
             }
             };
 
-            var httpClient = _httpClientFactory.CreateClient();
-            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
-
-            if (httpResponseMessage.IsSuccessStatusCode)
+            try
             {
-                using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+                var httpClient = _httpClientFactory.CreateClient();
+                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
-                TestPosts = await JsonSerializer.DeserializeAsync<IEnumerable<Post>>(contentStream, jsonOptions) ?? [];
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+
+                    TestPosts = await JsonSerializer.DeserializeAsync<IEnumerable<Post>>(contentStream, jsonOptions) ?? [];
+                }
+                else
+                {
+                     throw new Exception("Not Found");
+                }
             }
+            catch (Exception ex)
+            {
+                return new Exception(ex.Message, ex.InnerException);
+            }
+            
 
-            return TestPosts;
+            return new Result<IEnumerable<Post>>(TestPosts);
         }
     }
 }

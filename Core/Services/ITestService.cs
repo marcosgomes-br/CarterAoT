@@ -1,9 +1,11 @@
 ﻿using Core.Models;
+using Core.Results;
+
 
 namespace Core.Services
 {
     public interface ITestService
     {
-        Task<IEnumerable<Post>> GetPosts();
+        Task<Result<IEnumerable<Post>>> GetPosts();
     }
 }

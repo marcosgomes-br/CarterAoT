@@ -1,5 +1,5 @@
-﻿using Carter;
-using Core.Models;
+﻿using Core.Models;
+using Core.Results;
 using Core.Services;
 
 namespace Api
@@ -18,7 +18,7 @@ namespace Api
 
         public async Task<IResult> GetPosts(ITestService testService)
         {
-            IEnumerable<Post> posts = [];
+            Result<IEnumerable<Post>> posts;
 
             posts = await testService.GetPosts();
 
