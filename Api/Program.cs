@@ -1,4 +1,4 @@
-using Carter;
+using Api;
 using Core.Models;
 using Core.Services;
 using Infrastructure.Services;
@@ -9,7 +9,7 @@ var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.Services.AddHttpClient();
 
-builder.Services.AddEndpointsApiExplorer().AddCarter();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<ITestService, TestService>();
 
@@ -23,8 +23,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 var app = builder.Build();
 
 
-
-app.MapCarter();
+new TodoModule().AddRoutes(app);
+new PostModule().AddRoutes(app);
 
 
 app.Run();

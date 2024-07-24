@@ -4,10 +4,10 @@ using Core.Services;
 
 namespace Api
 {
-    public class PostModule : CarterModule
+    public class PostModule 
     {
 
-        public override void AddRoutes(IEndpointRouteBuilder app)
+        public void AddRoutes(IEndpointRouteBuilder app)
         {
             var todoGroup = app.MapGroup("Posts");
             todoGroup.MapGet("/", async (ITestService testeService, HttpResponse res) =>

@@ -4,9 +4,9 @@ using Core.Models;
 
 namespace Api
 {
-    public class TodoModule : CarterModule
+    public class TodoModule 
     {
-        public override void AddRoutes(IEndpointRouteBuilder app)
+        public void AddRoutes(IEndpointRouteBuilder app)
         {
 
             var todoGroup = app.MapGroup("Todos");
