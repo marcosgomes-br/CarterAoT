@@ -1,4 +1,5 @@
-﻿using Core.Models;
+﻿using Core.DTOs;
+using Core.Models;
 using Core.Results;
 using Core.Services;
 using Microsoft.Net.Http.Headers;
@@ -51,5 +52,16 @@ namespace Infrastructure.Services
 
             return new Result<IEnumerable<Post>>(TestPosts);
         }
+
+        public async Task<Result<Post>> InputPost(InputPostDTO inputPostDTO)
+            => new Result<Post>
+            (
+                new Post() { 
+                    Id = 123445,
+                    Body = inputPostDTO.Body,
+                    Title = inputPostDTO.Title,
+                    UserId = inputPostDTO.UserId,
+                } 
+            );
     }
 }

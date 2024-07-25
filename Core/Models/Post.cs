@@ -12,7 +12,7 @@ namespace Core.Models
         public int Id { get; set; }
 
         [JsonPropertyName("title")]
-        public string Tilte { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
 
         [JsonPropertyName("body")]
         public string Body { get; set; } = string.Empty;
@@ -20,6 +20,7 @@ namespace Core.Models
 
     [JsonSourceGenerationOptions(WriteIndented = true)]
     [JsonSerializable(typeof(Post[]))]
+    [JsonSerializable(typeof(Result<Post>[]))]
     [JsonSerializable(typeof(IEnumerable<Post>))]
     [JsonSerializable(typeof(Result<IEnumerable<Post>>))]
 

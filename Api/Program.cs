@@ -1,4 +1,5 @@
 using Api;
+using Core.DTOs;
 using Core.Models;
 using Core.Services;
 using Infrastructure.Services;
@@ -16,8 +17,12 @@ builder.Services.AddScoped<ITestService, TestService>();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    options.SerializerOptions.TypeInfoResolverChain.Insert(0, TodoJsonSerializerContext.Default);
-    options.SerializerOptions.TypeInfoResolverChain.Insert(1, PostJsonSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolverChain.Add(TodoJsonSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolverChain.Add(PostJsonSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolverChain.Add(GetPostJsonSerializerContext.Default);
+    options.SerializerOptions.TypeInfoResolverChain.Add(InputPostDTOsonSerializerContext.Default);
+
+
 });
 
 var app = builder.Build();

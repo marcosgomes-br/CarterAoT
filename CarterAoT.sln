@@ -5,11 +5,11 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{296282BC-2C60-4ADB-8F88-1B94FCC6EA04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{DE7BE622-6779-43A7-AD07-A998CD1B8FF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{DE7BE622-6779-43A7-AD07-A998CD1B8FF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9EA388FF-ECB8-44AB-AAED-4DDF76F44D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9EA388FF-ECB8-44AB-AAED-4DDF76F44D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{8AF8141A-1325-4D7D-BE67-9A663B513218}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{8AF8141A-1325-4D7D-BE67-9A663B513218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
