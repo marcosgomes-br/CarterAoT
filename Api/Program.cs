@@ -21,9 +21,10 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.TypeInfoResolverChain.Add(PostJsonSerializerContext.Default);
     options.SerializerOptions.TypeInfoResolverChain.Add(GetPostJsonSerializerContext.Default);
     options.SerializerOptions.TypeInfoResolverChain.Add(InputPostDTOsonSerializerContext.Default);
-
-
+    ServiceBase.options = options.SerializerOptions;
 });
+
+
 
 var app = builder.Build();
 

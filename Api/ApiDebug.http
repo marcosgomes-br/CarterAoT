@@ -11,7 +11,7 @@ Accept: application/json
 
 ###
 
-GET {{Api_HostAddress}}/Posts/getPostsByquery?userId=15&title=qui%20est%20esse&body=ThisIsAnExample
+GET {{Api_HostAddress}}/Posts/getPostsByquery?userId=15&title=qui%20est%20esse&body=ThisIsAnExample&Idade=19
 Accept: application/json
 
 ###
@@ -22,5 +22,6 @@ Content-Type : application/json
 {
   "userId": "15",
   "title": "Example Title",
-  "body": "This is an example content for the post."
+  "body": "This is an example content for the post.",
+  "idade": 19
 }

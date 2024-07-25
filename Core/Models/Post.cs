@@ -16,6 +16,9 @@ namespace Core.Models
 
         [JsonPropertyName("body")]
         public string Body { get; set; } = string.Empty;
+
+        [JsonPropertyName("idade")]
+        public int Idade { get; set; } = 0;
     }
 
     [JsonSourceGenerationOptions(WriteIndented = true)]

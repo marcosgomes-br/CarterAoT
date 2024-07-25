@@ -17,6 +17,8 @@ namespace Core.DTOs
         public string Title { get; set; } = string.Empty;
         [JsonPropertyName("body")]
         public string Body { get; set; } = string.Empty;
+        public int Idade { get; set; }
+
     }
 
     [JsonSourceGenerationOptions(WriteIndented = true)]

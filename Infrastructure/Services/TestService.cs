@@ -2,12 +2,16 @@
 using Core.Models;
 using Core.Results;
 using Core.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
+
+[assembly: InternalsVisibleTo("TestAPIMinimal")]
 
 namespace Infrastructure.Services
 {
-    public class TestService(IHttpClientFactory httpClientFactory) : ITestService
+    public class TestService(IHttpClientFactory httpClientFactory, IConfiguration configuration) : ITestService
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
@@ -17,27 +21,17 @@ namespace Infrastructure.Services
 
         public async Task<Result<IEnumerable<Post>>> GetPosts()
         {
-            var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.TypeInfoResolverChain.Add(PostJsonSerializerContext.Default);
-
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://jsonplaceholder.typicode.com/posts")
-            {
-                Headers =
-            {
-                    { HeaderNames.Accept, "application/json; charset=UTF-8" }
-            }
-            };
-
+            
             try
             {
                 var httpClient = _httpClientFactory.CreateClient();
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+                var httpResponseMessage = await httpClient.SendAsync(ServiceBase.ConnectService(configuration.GetSection("TesteServiceUrl").Value ?? "", HttpMethod.Get));
 
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
                     using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                    TestPosts = await JsonSerializer.DeserializeAsync<IEnumerable<Post>>(contentStream, jsonOptions) ?? [];
+                    TestPosts = await JsonSerializer.DeserializeAsync<IEnumerable<Post>>(contentStream, ServiceBase.options) ?? [];
                 }
                 else
                 {
@@ -54,14 +48,29 @@ namespace Infrastructure.Services
         }
 
         public async Task<Result<Post>> InputPost(InputPostDTO inputPostDTO)
-            => new Result<Post>
-            (
-                new Post() { 
-                    Id = 123445,
-                    Body = inputPostDTO.Body,
-                    Title = inputPostDTO.Title,
-                    UserId = inputPostDTO.UserId,
-                } 
-            );
+        {
+            if (!ValidarIdade(inputPostDTO.Idade))
+            {
+                return new Result<Post>();
+            }
+
+            var post = new Post()
+            {
+                Id = 123445,
+                Body = inputPostDTO.Body,
+                Title = inputPostDTO.Title,
+                UserId = inputPostDTO.UserId,
+                Idade = inputPostDTO.Idade,
+            };
+
+            return new Result<Post>(post);
+
+        }
+
+
+        internal bool ValidarIdade(int idade) {
+            return idade > 18;
+        }
+
     }
 }
